@@ -23,7 +23,7 @@ namespace StudyManager.DataAccess.ADO
             List<T> records = new List<T>();
             using SqlConnection connection = new SqlConnection(connectionString);
             using SqlCommand command = new SqlCommand(SelectQueryString, connection);
-            connection.Open();
+            await connection.OpenAsync();
             SqlDataReader reader = await command.ExecuteReaderAsync();
             while (reader.Read())
             {
@@ -37,7 +37,7 @@ namespace StudyManager.DataAccess.ADO
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             using SqlCommand command = new SqlCommand(SelectSingleQueryString, connection);
-            connection.Open();
+            await connection.OpenAsync();
 
             command.Parameters.AddWithValue("@id", id);
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -98,22 +98,22 @@ namespace StudyManager.DataAccess.ADO
             return entity;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             using var connection = new SqlConnection(connectionString);
             using var command = new SqlCommand(DeleteQueryString, connection);
-            connection.Open();
+            await connection.OpenAsync();
             command.Parameters.AddWithValue("@id", id);
-            return command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
         }
 
-        public Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
             using var connection = new SqlConnection(connectionString);
-            connection.Open();
+            await connection.OpenAsync();
             using var command = new SqlCommand(UpdateQueryString, connection);
             FillUpdateCommand(command, entity);
-            return command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
         }
 
         public async Task<T> CreateAsync(T entity)
@@ -123,7 +123,7 @@ namespace StudyManager.DataAccess.ADO
                 using SqlConnection connection = new SqlConnection(connectionString);
                 using SqlCommand command = new SqlCommand(InsertQueryString, connection);
                 FillCreateCommand(command, entity);
-                connection.Open();
+                await connection.OpenAsync();
                 id = (int) await command.ExecuteScalarAsync();
             }
             return await GetSingleAsync(id);

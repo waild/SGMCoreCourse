@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using StudyManager.DataAccess.ADO;
 using StudyManager.Models;
 
@@ -8,7 +9,14 @@ namespace SGMCoreCourseHW5
 {
     class Program
     {
-        static async void Main(string[] args)
+        static void Main(string[] args)
+        {
+            TestDB();
+            Console.ReadKey();
+        }
+
+
+        static async Task TestDB()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["StudyManager"].ConnectionString;
             var coursesRepository = new CoursesRepository(connectionString);
@@ -86,8 +94,6 @@ namespace SGMCoreCourseHW5
             {
                 Console.WriteLine(e.Message);
             }
-
-            Console.ReadKey();
         }
     }
 }
