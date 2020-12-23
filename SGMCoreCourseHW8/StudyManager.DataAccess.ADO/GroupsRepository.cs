@@ -6,7 +6,7 @@ using StudyManager.Models;
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class GroupsRepository : BaseRepository<Group>
+    public class GroupsRepository : BaseRepository<Group>, IBaseRepository<Group>
     {
         public GroupsRepository(string connectionString) : base(connectionString)
         {

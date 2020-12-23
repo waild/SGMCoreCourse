@@ -5,7 +5,16 @@ using System.Threading.Tasks;
 
 namespace StudyManager.DataAccess.ADO
 {
-    public abstract class BaseRepository<T> where T : new()
+    public interface IBaseRepository<T> where T : new()
+    {
+        Task<List<T>> GetAllAsync();
+        Task<T> GetSingleAsync(int id);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(T entity);
+        Task<T> CreateAsync(T entity);
+    }
+
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : new()
     {
         protected readonly string connectionString;
 

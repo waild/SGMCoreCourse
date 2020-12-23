@@ -5,7 +5,7 @@ using StudyManager.Models;
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class CoursesRepository : BaseRepository<Course>
+    public class CoursesRepository : BaseRepository<Course>, IBaseRepository<Course>
     {
         public CoursesRepository(string connectionString) : base(connectionString)
         {
