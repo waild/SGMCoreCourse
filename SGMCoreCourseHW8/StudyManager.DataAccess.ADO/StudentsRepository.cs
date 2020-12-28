@@ -2,7 +2,11 @@
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class StudentsRepository : BaseRepository<Student>, IBaseRepository<Student>
+    public interface IStudentsRepository: IBaseRepository <Student>
+    {
+    }
+
+    public class StudentsRepository : BaseRepository<Student>, IStudentsRepository
     {
         public StudentsRepository(string connectionString) : base(connectionString)
         {

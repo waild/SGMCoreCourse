@@ -6,7 +6,12 @@ using StudyManager.Models;
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class GroupsRepository : BaseRepository<Group>, IBaseRepository<Group>
+    public interface IGroupsRepository: IBaseRepository<Group>
+    {
+        Task<Group> GetStudentGroup(int studentId);
+    }
+
+    public class GroupsRepository : BaseRepository<Group>, IGroupsRepository
     {
         public GroupsRepository(string connectionString) : base(connectionString)
         {

@@ -2,7 +2,11 @@
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class GroupCoursesRepository : BaseRepository<GroupCourse>, IBaseRepository<GroupCourse>
+    public interface IGroupCoursesRepository: IBaseRepository<GroupCourse>
+    {
+    }
+
+    public class GroupCoursesRepository : BaseRepository<GroupCourse>, IGroupCoursesRepository
     {
         public GroupCoursesRepository(string connectionString) : base(connectionString)
         {

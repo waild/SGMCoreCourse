@@ -5,7 +5,12 @@ using StudyManager.Models;
 
 namespace StudyManager.DataAccess.ADO
 {
-    public class CoursesRepository : BaseRepository<Course>, IBaseRepository<Course>
+    public interface ICoursesRepository: IBaseRepository<Course>
+    {
+        Task<List<Course>> GetStudentCourses(int studentId);
+    }
+
+    public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
     {
         public CoursesRepository(string connectionString) : base(connectionString)
         {
